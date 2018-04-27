@@ -59,7 +59,7 @@ GROUP BY last_name;
 
 ### Question 4b
 
-SELECT last_name, COUNT(*)</br>
+SELECT last_name, COUNT(*) </br>
 FROM actor</br>
 GROUP BY last_name</br>
 HAVING COUNT(*) > 1;
