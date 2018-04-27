@@ -74,8 +74,8 @@ WHERE first_name = 'GROUCHO' AND last_name = 'WILLIAMS';
 
 UPDATE actor</br>
 SET first_name= CASE</br>
-	WHEN first_name = 'HARPO' THEN 'GROUCHO'</br>
-    ELSE 'MUCHO GROUCHO'</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN first_name = 'HARPO' THEN 'GROUCHO'</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE 'MUCHO GROUCHO'</br>
 END</br>
 WHERE actor_id IN (</br>
 SELECT actor_id</br>
