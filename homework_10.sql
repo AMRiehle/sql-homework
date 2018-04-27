@@ -50,16 +50,16 @@ DROP COLUMN middle_name;
 
 # Question 4a
 
-SELECT last_name, COUNT(last_name)
+SELECT last_name, COUNT(*)
 FROM actor
 GROUP BY last_name;
 
 # Question 4b
 
-SELECT last_name, COUNT(last_name)
+SELECT last_name, COUNT(*)
 FROM actor
 GROUP BY last_name
-HAVING COUNT(last_name) > 1;
+HAVING COUNT(*) > 1;
 
 # Question 4c
 
@@ -70,8 +70,15 @@ WHERE first_name = 'GROUCHO' AND last_name = 'WILLIAMS';
 # Question 4d
 
 UPDATE actor
-SET first_name = 'GROUCHO'
-WHERE first_name = 'HARPO' AND last_name = 'WILLIAMS';
+SET first_name= CASE
+	WHEN first_name = 'HARPO' THEN 'GROUCHO'
+    ELSE 'MUCHO GROUCHO'
+END
+WHERE actor_id IN (
+SELECT actor_id
+FROM film_actor
+WHERE (first_name = 'HARPO' OR first_name = 'GROUCHO')
+AND last_name = 'WILLIAMS');
 
 # Question 5a
 
@@ -122,9 +129,11 @@ ORDER BY customer.last_name;
 
 SELECT film.title
 FROM film
-JOIN language
-ON film.language_id = language.language_id
-WHERE (film.title LIKE 'K%' OR film.title LIKE 'Q%') AND language.name = 'English';
+WHERE (film.title LIKE 'K%' OR film.title LIKE 'Q%')
+AND film.language_id IN (
+SELECT language_id
+FROM language
+WHERE language.name = 'English');
 
 # Question 7b
 

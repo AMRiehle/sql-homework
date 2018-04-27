@@ -53,16 +53,16 @@ DROP COLUMN middle_name;
 
 ### Question 4a
 
-SELECT last_name, COUNT(last_name)</br>
+SELECT last_name, COUNT(*)</br>
 FROM actor</br>
 GROUP BY last_name;
 
 ### Question 4b
 
-SELECT last_name, COUNT(last_name)</br>
+SELECT last_name, COUNT(*)</br>
 FROM actor</br>
 GROUP BY last_name</br>
-HAVING COUNT(last_name) > 1;
+HAVING COUNT(*) > 1;
 
 ### Question 4c
 
@@ -73,8 +73,15 @@ WHERE first_name = 'GROUCHO' AND last_name = 'WILLIAMS';
 ### Question 4d
 
 UPDATE actor</br>
-SET first_name = 'GROUCHO'</br>
-WHERE first_name = 'HARPO' AND last_name = 'WILLIAMS';
+SET first_name= CASE</br>
+	WHEN first_name = 'HARPO' THEN 'GROUCHO'</br>
+    ELSE 'MUCHO GROUCHO'</br>
+END</br>
+WHERE actor_id IN (</br>
+SELECT actor_id</br>
+FROM film_actor</br>
+WHERE (first_name = 'HARPO' OR first_name = 'GROUCHO')</br>
+AND last_name = 'WILLIAMS');
 
 ### Question 5a
 
@@ -119,15 +126,17 @@ FROM customer</br>
 JOIN payment</br>
 ON customer.customer_id = payment.customer_id</br>
 GROUP BY customer.last_name, customer.first_name</br>
-ORDER BY customer.last_name;</br>
+ORDER BY customer.last_name;
 
 ### Question 7a
 
 SELECT film.title</br>
 FROM film</br>
-JOIN language</br>
-ON film.language_id = language.language_id</br>
-WHERE (film.title LIKE 'K%' OR film.title LIKE 'Q%') AND language.name = 'English';
+WHERE (film.title LIKE 'K%' OR film.title LIKE 'Q%')</br>
+AND film.language_id IN (</br>
+SELECT language_id</br>
+FROM language</br>
+WHERE language.name = 'English');
 
 ### Question 7b
 
