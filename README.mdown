@@ -53,7 +53,7 @@ DROP COLUMN middle_name;
 
 ### Question 4a
 
-SELECT last_name, COUNT(*)</br>
+SELECT last_name, COUNT(&ast;)</br>
 FROM actor</br>
 GROUP BY last_name;
 
